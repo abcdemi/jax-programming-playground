@@ -26,3 +26,10 @@ def simulate(u_init):
     # Он применяет step_fn nt раз, что позволяет XLA компилятору круто все оптимизировать.
     u_final, _ = jax.lax.scan(step_fn, u_init, None, length=nt)
     return u_final
+
+# --- 4. Функция потерь ---
+@jax.jit
+def loss_fn(u_init, target):
+    u_final = simulate(u_init)
+    # Насколько наш результат после симуляции далек от желаемой цели? (MSE)
+    return jnp.mean((u_final - target) ** 2)
