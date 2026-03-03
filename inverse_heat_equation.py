@@ -18,3 +18,11 @@ def step_fn(u, _):
 
     # JAX scan требует возвращать (состояние_передаваемое_дальше, выход_для_истории)
     return u_new, None
+
+# --- 3. Полная симуляция (Forward Pass) ---
+@jax.jit
+def simulate(u_init):
+    # jax.lax.scan - это JAX-идиоматичный способ писать циклы.
+    # Он применяет step_fn nt раз, что позволяет XLA компилятору круто все оптимизировать.
+    u_final, _ = jax.lax.scan(step_fn, u_init, None, length=nt)
+    return u_final
