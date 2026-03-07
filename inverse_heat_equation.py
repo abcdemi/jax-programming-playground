@@ -38,3 +38,6 @@ def loss_fn(u_init, target):
 # Создаем "целевое" распределение (target) - например, Гауссиан (тепловой пик) в центре
 x = jnp.linspace(0, 1, nx)
 target_distribution = jnp.exp(-100 * (x - 0.5)**2)
+
+# Наша начальная догадка для u_init (начнем с плоского нуля)
+u_init_guess = jnp.zeros(nx)
