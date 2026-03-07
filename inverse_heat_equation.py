@@ -33,3 +33,8 @@ def loss_fn(u_init, target):
     u_final = simulate(u_init)
     # Насколько наш результат после симуляции далек от желаемой цели? (MSE)
     return jnp.mean((u_final - target) ** 2)
+
+# --- 5. Настройка эксперимента ---
+# Создаем "целевое" распределение (target) - например, Гауссиан (тепловой пик) в центре
+x = jnp.linspace(0, 1, nx)
+target_distribution = jnp.exp(-100 * (x - 0.5)**2)
