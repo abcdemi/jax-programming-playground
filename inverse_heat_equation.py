@@ -41,3 +41,7 @@ target_distribution = jnp.exp(-100 * (x - 0.5)**2)
 
 # Наша начальная догадка для u_init (начнем с плоского нуля)
 u_init_guess = jnp.zeros(nx)
+
+# Магия дифференцируемого программирования:
+# получаем функцию, которая возвращает и значение лосса, и градиенты по u_init
+loss_and_grad_fn = jax.value_and_grad(loss_fn)
