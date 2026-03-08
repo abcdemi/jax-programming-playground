@@ -45,3 +45,7 @@ u_init_guess = jnp.zeros(nx)
 # Магия дифференцируемого программирования:
 # получаем функцию, которая возвращает и значение лосса, и градиенты по u_init
 loss_and_grad_fn = jax.value_and_grad(loss_fn)
+
+# --- 6. Цикл оптимизации ---
+learning_rate = 50.0
+epochs = 200
