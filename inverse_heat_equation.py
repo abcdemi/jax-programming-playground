@@ -49,3 +49,16 @@ loss_and_grad_fn = jax.value_and_grad(loss_fn)
 # --- 6. Цикл оптимизации ---
 learning_rate = 50.0
 epochs = 200
+
+print("Начинаем оптимизацию начального состояния (Reverse Engineering через градиенты)...")
+for i in range(epochs):
+    # JAX "пробрасывает" градиенты через все 100 шагов симуляции Эйлера (BPTT)
+    loss_val, grads = loss_and_grad_fn(u_init_guess, target_distribution)
+
+    # Базовый шаг градиентного спуска
+    u_init_guess = u_init_guess - learning_rate * grads
+
+    if i % 20 == 0 or i == epochs - 1:
+        print(f"Epoch {i:3d} | Loss (MSE): {loss_val:.6f}")
+
+print("Оптимизация завершена!")
