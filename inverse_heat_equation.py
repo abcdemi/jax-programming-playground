@@ -62,3 +62,20 @@ for i in range(epochs):
         print(f"Epoch {i:3d} | Loss (MSE): {loss_val:.6f}")
 
 print("Оптимизация завершена!")
+
+import matplotlib.pyplot as plt
+
+# Вычисляем финальный результат после оптимизации
+u_final_optimized = simulate(u_init_guess)
+
+plt.figure(figsize=(10, 6))
+plt.plot(x, target_distribution, 'r--', label='Цель (Target)', linewidth=2)
+plt.plot(x, u_init_guess, 'g-', label='Найденное Начало (Optimized Init)')
+plt.plot(x, u_final_optimized, 'b:', label='Итог симуляции (Final Result)')
+
+plt.title("Обратная задача теплопроводности: поиск начального состояния")
+plt.xlabel("Пространство (x)")
+plt.ylabel("Температура (u)")
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
